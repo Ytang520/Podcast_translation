@@ -1,0 +1,17 @@
+# Audio processing
+pydub>=0.25.1
+
+# HTTP requests
+requests>=2.31.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# Progress bar
+tqdm>=4.66.0
+
+# WER evaluation
+jiwer>=3.0.0
+
+# For audio file handling (pydub dependency)
+# Note: ffmpeg must be installed on the system

@@ -1,0 +1,104 @@
+{
+  "reference_file": "C:\\Users\\Frank\\OneDrive\\Desktop\\audio_translation_automatic_process\\evaluation_test\\reference_script.txt",
+  "reference_word_count": 3093,
+  "models": {
+    "canary_1b_v2": {
+      "run_count": 3,
+      "runs": {
+        "run_1": {
+          "file": "C:\\Users\\Frank\\OneDrive\\Desktop\\audio_translation_automatic_process\\evaluation_test\\script\\canary_1b_v2\\run_1.txt",
+          "status": "evaluated",
+          "wer": 0.09990300678952474,
+          "mer": 0.09772296015180265,
+          "wil": 0.1648293568989999,
+          "substitutions": 229,
+          "insertions": 69,
+          "deletions": 11,
+          "reference_word_count": 3093,
+          "hypothesis_word_count": 3151
+        },
+        "run_2": {
+          "file": "C:\\Users\\Frank\\OneDrive\\Desktop\\audio_translation_automatic_process\\evaluation_test\\script\\canary_1b_v2\\run_2.txt",
+          "status": "evaluated",
+          "wer": 0.09990300678952474,
+          "mer": 0.09772296015180265,
+          "wil": 0.1648293568989999,
+          "substitutions": 229,
+          "insertions": 69,
+          "deletions": 11,
+          "reference_word_count": 3093,
+          "hypothesis_word_count": 3151
+        },
+        "run_3": {
+          "file": "C:\\Users\\Frank\\OneDrive\\Desktop\\audio_translation_automatic_process\\evaluation_test\\script\\canary_1b_v2\\run_3.txt",
+          "status": "evaluated",
+          "wer": 0.09990300678952474,
+          "mer": 0.09772296015180265,
+          "wil": 0.1648293568989999,
+          "substitutions": 229,
+          "insertions": 69,
+          "deletions": 11,
+          "reference_word_count": 3093,
+          "hypothesis_word_count": 3151
+        }
+      },
+      "statistics": {
+        "mean": 0.09990300678952474,
+        "variance": 0.0,
+        "std_dev": 0.0,
+        "min": 0.09990300678952474,
+        "max": 0.09990300678952474,
+        "count": 3
+      }
+    },
+    "whisper_large_v3": {
+      "run_count": 3,
+      "runs": {
+        "run_1": {
+          "file": "C:\\Users\\Frank\\OneDrive\\Desktop\\audio_translation_automatic_process\\evaluation_test\\script\\whisper_large_v3\\run_1.txt",
+          "status": "evaluated",
+          "wer": 0.20691884901390237,
+          "mer": 0.18007878446820483,
+          "wil": 0.19773255459104033,
+          "substitutions": 47,
+          "insertions": 461,
+          "deletions": 132,
+          "reference_word_count": 3093,
+          "hypothesis_word_count": 3422
+        },
+        "run_2": {
+          "file": "C:\\Users\\Frank\\OneDrive\\Desktop\\audio_translation_automatic_process\\evaluation_test\\script\\whisper_large_v3\\run_2.txt",
+          "status": "evaluated",
+          "wer": 0.15033947623666344,
+          "mer": 0.1395139513951395,
+          "wil": 0.1618759520114399,
+          "substitutions": 65,
+          "insertions": 240,
+          "deletions": 160,
+          "reference_word_count": 3093,
+          "hypothesis_word_count": 3173
+        },
+        "run_3": {
+          "file": "C:\\Users\\Frank\\OneDrive\\Desktop\\audio_translation_automatic_process\\evaluation_test\\script\\whisper_large_v3\\run_3.txt",
+          "status": "evaluated",
+          "wer": 0.14354995150339475,
+          "mer": 0.13695249845774213,
+          "wil": 0.1676632312379589,
+          "substitutions": 94,
+          "insertions": 149,
+          "deletions": 201,
+          "reference_word_count": 3093,
+          "hypothesis_word_count": 3041
+        }
+      },
+      "statistics": {
+        "mean": 0.1669360922513202,
+        "variance": 0.0008069933601851835,
+        "std_dev": 0.028407628556167505,
+        "min": 0.14354995150339475,
+        "max": 0.20691884901390237,
+        "count": 3
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+graph LR
+    subgraph "I. Transcription"
+        A([Input Audio]) -->|Whisper| B(English Text);
+    end
+
+    subgraph "II. Translation & Analysis"
+        B --> C{Analyzer};
+        C -->|Extract| D[Term Extraction];
+        D -->|Search| E[Term DB];
+        E -.->|Inject Terms| F[AI Translation];
+        B --> F;
+        F --> G(Chinese Text);
+        F --> H(Summary);
+    end
+
+    subgraph "III. Audio Production"
+        I([Voice Sample]) -->|Upload| J[Voice Cloning];
+        J -->|Voice ID| K[MiniMax TTS];
+        G --> K;
+        K --> L([Chinese Audio]);
+    end
+
+    style A fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
+    style B fill:#fff9c4,stroke:#fbc02d,stroke-width:2px;
+    style D fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
+    style F fill:#e3f2fd,stroke:#1565c0,stroke-width:2px;
+    style K fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    style L fill:#ffebee,stroke:#c62828,stroke-width:2px;

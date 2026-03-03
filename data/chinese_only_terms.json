@@ -1,0 +1,32 @@
+{
+    "description": "Terms that should NEVER have English annotations in the final Chinese text. For these terms, even the first occurrence will use only the Chinese form (no parenthetical English). Useful for well-known names, common terms, or terms the audience already knows.",
+    "terms": [
+        "柏拉图",
+        "亚里士多德",
+        "苏格拉底",
+        "笛卡尔",
+        "康德",
+        "前苏格拉底哲学家",
+        "米利都的泰勒斯",
+        "米利都",
+        "本原",
+        "残篇",
+        "实体",
+        "泰勒斯",
+        "赫拉",
+        "宙斯",
+        "荷马",
+        "《伊利亚特》",
+        "《奥德赛》",
+        "伊利亚特",
+        "奥德赛",
+        "赫克托耳",
+        "克洛诺斯",
+        "乌拉诺斯",
+        "普里阿摩斯",
+        "泰勒斯",
+        "阿那克西美尼",
+        "阿那克西曼德",
+        "真理"
+    ]
+}
