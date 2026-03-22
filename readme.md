@@ -17,27 +17,62 @@ You are also welcome to subscribe to my [Xiaoyuzhoufm](https://www.xiaoyuzhoufm.
 
 ---
 
+## Design Differences and Contributions
+
+Compared to existing work and typical pipelines, this project focuses on the following aspects:
+
+- **Single-audio processing**
+  - Includes an explicit polishing stage to improve fluency and readability of the translated text
+  - Supports domain-specific terminology translation:
+    - Can integrate external knowledge bases (for example, Wikipedia or specialized databases)
+    - Provides the original term in parentheses alongside the translation to aid understanding
+    - Allows optional human-in-the-loop refinement
+
+- **Multi-audio consistency**
+  - Aligns translations across multiple audio sources to ensure consistent terminology
+  - Prevents the same term from being translated into different meanings across episodes or segments
+
+- **Non-real-time translation pipeline**
+  - Focuses on quality rather than latency
+  - Supports stronger TTS models (for example, MiniMax)
+  - Allows downstream fine-tuning and customization of TTS models
+
+---
+
 ## To-Do List
 
 ### Technical
 
+- [ ] **Evaluation and analysis**
+  - [ ] Assess whether the architecture and design choices are sufficiently effective
+  - [ ] Translation quality evaluation
+    - [ ] Metrics
+      - [ ] COMET-Kiwi
+      - [ ] LLM-as-a-judge (review official judge prompts from different sources)
+      - [ ] BLEU
+    - [ ] Model comparison
+      - [ ] Analyze translation differences between GPT-4o and DeepSeek models
 - [ ] **MiniMax API enhancements**
   - [ ] Multi-speaker conversation support
     - [ ] 2-speaker dialogue
     - [ ] Multi-speaker (3–5 speakers)
   - [ ] Incorporate tone, pauses, and other prosodic features — prompt the model to actively inject these during transcription
+
 - [ ] **Fine-tune Qwen TTS model (and others)**
   - [ ] Single-speaker
     - [ ] Targeted fine-tuning on MiniMax-based philosophy podcast audio
     - [ ] Expand to more domains (LoRA fine-tuning for easy adapter swapping → leverage open-source audio datasets)
   - [ ] Multi-speaker
-- [ ] **End-to-end translation** — synchronize tone, voice, and intonation with the original audio
+
+- [ ] **End-to-end translation**
+  - [ ] Synchronize tone, voice, and intonation with the original audio
 
 ### Presentation
 
 - [ ] **Desktop GUI** — click-and-drag interface to run the full pipeline (PC only)
   - [ ] LLM sidebar for interactive Q&A assistance
   - [ ] Core workflow integration
+
 - [ ] **UI polish** *(TBD)*
 
 ---
