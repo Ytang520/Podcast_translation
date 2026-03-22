@@ -98,3 +98,191 @@
 
 ```bash
 pip install -r requirements.txt
+````
+
+> 注意：需要安装 [ffmpeg](https://ffmpeg.org/)（`pydub` 依赖）
+
+---
+
+### 2. 配置 `.env`
+
+填写 `.env` 文件。如果使用闭源模型（如 gpt-audio-mini），可以忽略 whisper_api，将使用 OpenRouter API。
+
+```env
+# Whisper API（远程服务器）
+# 在 GPU 服务器上部署 speaches：
+# docker run -d -p 8000:8000 --gpus all ghcr.io/speaches-ai/speaches:latest
+WHISPER_API_URL=http://your-server:8000
+
+# OpenRouter API — https://openrouter.ai/keys
+OPENROUTER_API_KEY=your_key
+OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
+
+# MiniMax API — https://platform.minimax.io
+MINIMAX_API_KEY=your_key
+MINIMAX_BASE_URL=https://api.minimax.io/v1
+```
+
+> 经验：如果不进行微调，闭源模型通常效果更好（有时也更便宜）。
+
+---
+
+### 3. 验证配置
+
+```bash
+python config.py
+```
+
+---
+
+## 三步流程
+
+### 第 0 步（可选）：Whisper 转录交叉验证
+
+如果你有同一音频的 3 份转录文本，可以用 LLM 进行融合。将文本放入 `input/` 目录：
+
+```
+input/
+├── ep001/
+│   ├── 0.txt
+│   ├── 1.txt
+│   └── 2.txt
+```
+
+**单独使用：**
+
+```bash
+python cross_validator.py --episode_id ep001 --output_dir output/ep001/
+```
+
+**或在 Step1 中调用：**
+
+```bash
+python step1_transcribe.py --from_texts --episode_id ep001 --output_dir output/ep001/
+```
+
+输出：
+
+* `ep001_transcription.json`（供 Step 2 使用）
+* `ep001_english.txt`
+
+---
+
+### 第 1 步：音频转录
+
+**Whisper 模式（默认）：**
+
+```bash
+python step1_transcribe.py --input lecture.mp3 --episode_id ep001 --output_dir output/ep001/
+```
+
+**OpenRouter 模式（闭源模型）：**
+
+```bash
+python step1_transcribe.py --input lecture.mp3 --episode_id ep001 --method openrouter --temperature 0.2 --output_dir output/ep001/
+```
+
+**多次转录 + 交叉验证：**
+
+```bash
+# 转录 3 次 → 保存到 input/ep001/0.txt, 1.txt, 2.txt
+python step1_transcribe.py --input lecture.mp3 --episode_id ep001 --method openrouter --runs 3
+
+# 再进行交叉验证
+python step1_transcribe.py --from_texts --episode_id ep001 --output_dir output/ep001/
+```
+
+输出：
+
+* `ep001_transcription.json`
+* `ep001_english.txt`
+
+---
+
+### 第 2 步：术语处理与翻译
+
+```bash
+python step2_translate.py --input output/ep001/ep001_transcription.json --episode_id ep001 --output_dir output/ep001/
+```
+
+输出：
+
+* `ep001_translation.json`
+* `ep001_chinese.txt`
+* `ep001_summary.txt`
+
+---
+
+### 第 3 步：语音生成
+
+```bash
+python step3_audio.py --input output/ep001/ep001_translation.json --voice_sample voice.mp3 --output output/ep001/ep001_chinese.mp3
+```
+
+输出：
+
+* `ep001_chinese.mp3`
+
+---
+
+## 完整流程示例
+
+Step 1 有四种互斥模式，选择其中一种：
+
+```bash
+# A：使用已有文本交叉验证
+python step1_transcribe.py --from_texts -e ep001 -o output/ep001/
+
+# B：Whisper 转录
+python step1_transcribe.py -i lecture.mp3 -e ep001 -o output/ep001/
+
+# C：OpenRouter 转录（闭源模型）
+python step1_transcribe.py -i lecture.mp3 -e ep001 --method openrouter -o output/ep001/
+
+# D：多次转录 + 交叉验证（推荐）
+python step1_transcribe.py -i lecture.mp3 -e ep001 --method openrouter --runs 3
+python step1_transcribe.py --from_texts -e ep001 -o output/ep001/
+
+# Step 2：翻译
+python step2_translate.py -i output/ep001/ep001_transcription.json -e ep001 -o output/ep001/
+
+# Step 3：生成音频
+python step3_audio.py -i output/ep001/ep001_translation.json -v voice.mp3 -o output/ep001/ep001_chinese.mp3
+```
+
+---
+
+## Dry Run 模式
+
+添加 `--dry_run`（或 `-d`）用于验证流程而不调用 API：
+
+```bash
+python step1_transcribe.py -i lecture.mp3 -e ep001 --dry_run
+python step2_translate.py -i output/ep001/ep001_transcription.json -e ep001 --dry_run
+python step3_audio.py -i output/ep001/ep001_translation.json -v voice.mp3 -o output.mp3 --dry_run
+```
+
+---
+
+## 旧版一键流程
+
+（该部分更新较频繁，可能未完全验证）
+
+```bash
+python main.py --input lecture.mp3 --voice_sample voice.mp3 --output output.mp3 --episode_id ep001
+```
+
+可选参数：
+
+* `--dry_run`
+* `--model`
+* `--no_search`
+* `--enable_reasoning`
+* `--polish_segment_chars`
+* `--chinese_only_terms`
+
+---
+
+## License
+
+MIT
